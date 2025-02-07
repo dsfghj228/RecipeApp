@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
+using api.Models.Recipe;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,10 @@ namespace api.Data
         {
             
         }
+
+        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Instruction> Instructions { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +38,16 @@ namespace api.Data
             };
 
             builder.Entity<IdentityRole>().HasData(roles);
+
+            builder.Entity<Recipe>()
+            .HasMany(r => r.Instruction)
+            .WithOne(i => i.Recipe)
+            .HasForeignKey(i => i.RecipeId);
+
+            builder.Entity<Recipe>()
+            .HasMany(r => r.Ingredients)
+            .WithOne(i => i.Recipe)
+            .HasForeignKey(i => i.RecipeId);
         }
     }
 }
