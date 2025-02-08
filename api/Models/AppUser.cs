@@ -8,6 +8,6 @@ namespace api.Models
 {
     public class AppUser : IdentityUser
     {
-        
+        public ICollection<api.Models.Recipe.Recipe> Recipes { get; set; }
     }
 }
