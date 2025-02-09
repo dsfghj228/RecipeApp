@@ -19,7 +19,7 @@ namespace api.Service
             }
         }
 
-        public Photo Upload(IFormFile file)
+        public Photo UploadPhoto(IFormFile file)
         {
             var fileName = Path.GetFileNameWithoutExtension(file.FileName) + "_" + Guid.NewGuid() + Path.GetExtension(file.FileName);
             var FilePath = Path.Combine(_storagePath, fileName);
