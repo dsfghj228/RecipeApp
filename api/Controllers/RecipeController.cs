@@ -29,7 +29,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeModel createRecipeModel,IFormFile photo)
+        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeModel createRecipeModel)
         {
             if (createRecipeModel is null)
             {
@@ -44,15 +44,7 @@ namespace api.Controllers
                 return NotFound("User not found");
             }
 
-            if (photo != null)
-            {
-                var filePath = Path.Combine("wwwroot/images", Guid.NewGuid() + Path.GetExtension(photo.FileName));
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await photo.CopyToAsync(stream);
-                }
-
-                var recipe = new Recipe
+            var recipe = new Recipe
                 {
                     Name = createRecipeModel.Name,
                     Description = createRecipeModel.Description,
@@ -60,21 +52,17 @@ namespace api.Controllers
                     Servings = createRecipeModel.Servings,
                     Ingredients = _mapper.Map<Ingredient[]>(createRecipeModel.Ingredients),
                     Instruction = _mapper.Map<Instruction[]>(createRecipeModel.Instruction),
-                    PhotoUrl = "/images/" + Path.GetFileName(filePath),
+                    PhotoUrl = createRecipeModel.PhotoUrl,
                     AppUserId = userId,
                     AppUser = appUser
                 };
-
-                await _recipeRepo.CreateRecipe(recipe);
+            
+            await _recipeRepo.CreateRecipe(recipe);
                 
                 var recipeForReturn = _mapper.Map<RecipeForReturn>(recipe);
 
                 return CreatedAtAction("Well done", new {id = recipe.Id}, recipeForReturn);
-            }
-            else
-            {
-                return BadRequest("Photo is required");
-            }
+
         }
     }
 }
