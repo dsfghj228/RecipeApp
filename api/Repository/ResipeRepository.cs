@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
+using api.Models;
 using api.Models.Recipe;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
@@ -23,6 +25,15 @@ namespace api.Repository
             await _context.SaveChangesAsync();
 
             return recipe;
+        }
+
+        public async Task<List<Recipe>> GetRecipes(AppUser user)
+        {
+            return await _context.Recipes
+                            .Where(r => r.AppUserId == user.Id)
+                            .Include(r => r.Ingredients)
+                            .Include(r => r.Instruction)
+                            .ToListAsync();
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Models;
 using api.Models.Recipe;
 
 namespace api.Interfaces
@@ -9,5 +10,6 @@ namespace api.Interfaces
     public interface IRecipeRepository
     {
         Task<Recipe> CreateRecipe(Recipe recipe);
+        Task<List<Recipe>> GetRecipes(AppUser user);
     }
 }
