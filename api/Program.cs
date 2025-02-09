@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var storagePath = Path.Combine(Directory.GetCurrentDirectory(), "Photos");
+builder.Services.AddSingleton(new PhotoStorageService(storagePath));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
