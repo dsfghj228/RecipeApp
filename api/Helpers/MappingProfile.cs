@@ -10,12 +10,19 @@ using AutoMapper;
 namespace api.Helpers
 {
     public class MappingProfile : Profile
+{
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<Recipe, RecipeForReturn>();
-            CreateMap<IngredientDto, Ingredient>();
-            CreateMap<InstructionDto, Instruction>();
-        }
+        CreateMap<CreateRecipeModel, Recipe>();
+
+        CreateMap<IngredientDto, Ingredient>();
+        CreateMap<Ingredient, IngredientDto>();
+
+        CreateMap<InstructionDto, Instruction>();
+        CreateMap<Instruction, InstructionDto>();
+
+        CreateMap<Recipe, RecipeForReturn>();
     }
+}
+
 }

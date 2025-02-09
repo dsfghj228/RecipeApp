@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace api.Models.Recipe
@@ -13,6 +14,8 @@ namespace api.Models.Recipe
         public string Unit { get; set; } // Единица измерения (г, шт и т.д.)
 
         public Guid RecipeId { get; set; }
+        
+        [JsonIgnore]
         public Recipe Recipe { get; set; }
     }
 }
