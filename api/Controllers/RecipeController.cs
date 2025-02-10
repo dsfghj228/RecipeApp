@@ -16,7 +16,6 @@ namespace api.Controllers
 {
     [Route("api/recipes")]
     [ApiController]
-    [Authorize]
     public class RecipeController : ControllerBase
     {
         private readonly IRecipeRepository _recipeRepo;
@@ -31,6 +30,7 @@ namespace api.Controllers
         }
         
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetRecipes()
         {
             try {
@@ -55,6 +55,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeModel createRecipeModel)
         {
             if (createRecipeModel == null)
@@ -88,6 +89,24 @@ namespace api.Controllers
             var recipeForReturn = _mapper.Map<RecipeForReturn>(recipe);
 
             return CreatedAtAction(nameof(GetRecipes), new { id = recipe.Id }, recipeForReturn);
+        }
+
+        [HttpDelete("id")]
+        [Authorize]
+        public async Task<IActionResult> DeleteTask(Guid id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var recipeForDelete = await _recipeRepo.DeleteRecipe(id, userId);
+
+            if (recipeForDelete is null)
+            {
+                return NotFound("User id is invalid or such recipe doesn't exist");
+            }
+
+            var recipeForReturn = _mapper.Map<RecipeForReturn>(recipeForDelete);
+
+            return Ok(recipeForReturn);
         }
     }
 }

@@ -27,6 +27,24 @@ namespace api.Repository
             return recipe;
         }
 
+        public async Task<Recipe> DeleteRecipe(Guid id, string AppUserId)
+        {
+            var recipeForDelete = await _context.Recipes
+                                        .Include(r => r.Ingredients)
+                                        .Include(r => r.Instruction)
+                                        .FirstOrDefaultAsync(r => r.Id == id && r.AppUserId == AppUserId);
+
+            if (recipeForDelete is null)
+            {
+                return null;
+            }
+
+            _context.Recipes.Remove(recipeForDelete);
+            await _context.SaveChangesAsync();
+
+            return recipeForDelete;
+        }
+
         public async Task<List<Recipe>> GetRecipes(AppUser user)
         {
             return await _context.Recipes

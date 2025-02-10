@@ -11,5 +11,6 @@ namespace api.Interfaces
     {
         Task<Recipe> CreateRecipe(Recipe recipe);
         Task<List<Recipe>> GetRecipes(AppUser user);
+        Task<Recipe> DeleteRecipe(Guid id, string AppUserId);
     }
 }
