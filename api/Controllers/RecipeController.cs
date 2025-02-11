@@ -54,6 +54,21 @@ namespace api.Controllers
             }
         }
 
+        [HttpGet("/api/allRecipes")]
+        public async Task<IActionResult> GetAllRecipesFromDb()
+        {
+            var recipes = await _recipeRepo.GetAllRecipesFromDB();
+
+            if (recipes is null)
+            {
+                return NotFound("No recipes found");
+            }
+
+            var recipesForReturn = _mapper.Map<List<RecipeForReturn>>(recipes);
+
+            return Ok(recipesForReturn);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateOrUpdateRecipeModel createRecipeModel)

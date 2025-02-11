@@ -49,6 +49,14 @@ namespace api.Repository
             return recipeForDelete;
         }
 
+        public async Task<List<Recipe>> GetAllRecipesFromDB()
+        {
+            return await _context.Recipes
+                                    .Include(r => r.Ingredients)
+                                    .Include(r => r.Instruction)
+                                    .ToListAsync();
+        }
+
         public async Task<List<Recipe>> GetRecipes(AppUser user)
         {
             return await _context.Recipes
