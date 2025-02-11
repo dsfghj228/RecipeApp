@@ -14,7 +14,7 @@ namespace api.Models.Recipe
         public int Servings { get; set; }
         public ICollection<Ingredient> Ingredients { get; set; }
         public ICollection<Instruction> Instruction { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoName { get; set; }
 
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }

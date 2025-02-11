@@ -56,7 +56,7 @@ namespace api.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeModel createRecipeModel)
+        public async Task<IActionResult> CreateRecipe([FromBody] CreateOrUpdateRecipeModel createRecipeModel)
         {
             if (createRecipeModel == null)
             {
@@ -79,7 +79,7 @@ namespace api.Controllers
                 Servings = createRecipeModel.Servings,
                 Ingredients = _mapper.Map<ICollection<Ingredient>>(createRecipeModel.Ingredients),
                 Instruction = _mapper.Map<ICollection<Instruction>>(createRecipeModel.Instruction),
-                PhotoUrl = createRecipeModel.PhotoUrl,
+                PhotoName = createRecipeModel.PhotoName,
                 AppUserId = userId,
                 AppUser = appUser
             };
@@ -93,7 +93,7 @@ namespace api.Controllers
 
         [HttpDelete("id")]
         [Authorize]
-        public async Task<IActionResult> DeleteTask(Guid id)
+        public async Task<IActionResult> DeleteRecipe(Guid id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
@@ -105,6 +105,24 @@ namespace api.Controllers
             }
 
             var recipeForReturn = _mapper.Map<RecipeForReturn>(recipeForDelete);
+
+            return Ok(recipeForReturn);
+        }
+
+        [HttpPut("id")]
+        [Authorize]
+        public async Task<IActionResult> UpdateRecipe(Guid id, CreateOrUpdateRecipeModel updateRecipeModel)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var recipeForUpdate = await _recipeRepo.UpdateRecipe(id, userId, updateRecipeModel);
+
+            if (recipeForUpdate is null)
+            {
+                return NotFound("User id is invalid or such recipe doesn't exist");
+            }
+
+            var recipeForReturn = _mapper.Map<RecipeForReturn>(recipeForUpdate);
 
             return Ok(recipeForReturn);
         }

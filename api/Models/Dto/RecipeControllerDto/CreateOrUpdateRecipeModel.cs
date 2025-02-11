@@ -7,7 +7,7 @@ using api.Models.Recipe;
 
 namespace api.Models.Dto
 {
-    public class CreateRecipeModel
+    public class CreateOrUpdateRecipeModel
     {
         public string Name { get; set; }   
         public string Description { get; set; }
@@ -15,6 +15,6 @@ namespace api.Models.Dto
         public int Servings { get; set; }
         public ICollection<IngredientDto> Ingredients { get; set; }
         public ICollection<InstructionDto> Instruction { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoName { get; set; }
     }
 }

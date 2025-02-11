@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using api.Models.Dto;
 using api.Models.Recipe;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
@@ -13,10 +15,12 @@ namespace api.Repository
     public class ResipeRepository : IRecipeRepository
     {
         private readonly ApplicationDBContext _context;
+        private readonly IMapper _mapper;
 
-        public ResipeRepository(ApplicationDBContext context)
+        public ResipeRepository(ApplicationDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<Recipe> CreateRecipe(Recipe recipe)
@@ -52,6 +56,29 @@ namespace api.Repository
                             .Include(r => r.Ingredients)
                             .Include(r => r.Instruction)
                             .ToListAsync();
+        }
+
+        public async Task<Recipe> UpdateRecipe(Guid id, string AppUserId, CreateOrUpdateRecipeModel updateRecipeModel)
+        {
+            var recipeForUpdate = await _context.Recipes.FirstOrDefaultAsync(r => r.Id == id && r.AppUserId == AppUserId);
+
+            if (recipeForUpdate is null)
+            {
+                return null;
+            }
+
+            recipeForUpdate.Name = updateRecipeModel.Name;
+            recipeForUpdate.Description = updateRecipeModel.Description;
+            recipeForUpdate.CookTime = updateRecipeModel.CookTime;
+            recipeForUpdate.Servings = updateRecipeModel.Servings;
+            recipeForUpdate.Ingredients = _mapper.Map<ICollection<Ingredient>>(updateRecipeModel.Ingredients);
+            recipeForUpdate.Instruction = _mapper.Map<ICollection<Instruction>>(updateRecipeModel.Instruction);
+            recipeForUpdate.PhotoName = updateRecipeModel.PhotoName;
+
+            _context.Recipes.Update(recipeForUpdate);
+            await _context.SaveChangesAsync();
+
+            return recipeForUpdate;
         }
     }
 }

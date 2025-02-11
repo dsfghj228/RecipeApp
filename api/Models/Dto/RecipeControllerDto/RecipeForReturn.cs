@@ -16,6 +16,6 @@ namespace api.Models.Dto
         public int Servings { get; set; }
         public ICollection<IngredientDto> Ingredients { get; set; }
         public ICollection<InstructionDto> Instruction { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoName { get; set; }
     }
 }

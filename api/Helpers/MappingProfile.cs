@@ -13,7 +13,7 @@ namespace api.Helpers
 {
     public MappingProfile()
     {
-        CreateMap<CreateRecipeModel, Recipe>();
+        CreateMap<CreateOrUpdateRecipeModel, Recipe>();
 
         CreateMap<IngredientDto, Ingredient>();
         CreateMap<Ingredient, IngredientDto>();
