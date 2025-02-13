@@ -57,6 +57,15 @@ namespace api.Repository
                                     .ToListAsync();
         }
 
+        public async Task<Recipe> GetRecipeById(Guid id)
+        {
+            return await _context.Recipes
+                            .Include(r => r.Ingredients)
+                            .Include(r => r.Instruction)
+                            .Include(r => r.AppUser)
+                            .FirstOrDefaultAsync(r => r.Id == id);
+        }
+
         public async Task<List<Recipe>> GetRecipes(AppUser user)
         {
             return await _context.Recipes

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using api.Interfaces;
 using api.Models;
 using api.Models.Dto;
+using api.Models.Dto.RecipeControllerDto;
+using api.Models.Dto.RecipeDto;
 using api.Models.Recipe;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -67,6 +69,32 @@ namespace api.Controllers
             var recipesForReturn = _mapper.Map<List<RecipeForReturn>>(recipes);
 
             return Ok(recipesForReturn);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRecipeById(Guid id)
+        {
+            var recipe = await _recipeRepo.GetRecipeById(id);
+
+            if (recipe is null)
+            {
+                return NotFound("Recipe not found");
+            }
+
+            var recipeForReturn = new GetByIdRecipeForReturn 
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                CookTime = recipe.CookTime,
+                Servings = recipe.Servings,
+                Ingredients = _mapper.Map<ICollection<IngredientDto>>(recipe.Ingredients),
+                Instruction = _mapper.Map<ICollection<InstructionDto>>(recipe.Instruction),
+                PhotoName = recipe.PhotoName,
+                UserName = recipe.AppUser.UserName
+            };
+
+            return Ok(recipeForReturn);
         }
 
         [HttpPost]
