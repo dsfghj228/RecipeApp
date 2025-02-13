@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using api.Models.Dto;
@@ -57,9 +58,9 @@ namespace api.Controllers
         }
 
         [HttpGet("/api/allRecipes")]
-        public async Task<IActionResult> GetAllRecipesFromDb()
+        public async Task<IActionResult> GetAllRecipesFromDb([FromQuery] QueryObject query)
         {
-            var recipes = await _recipeRepo.GetAllRecipesFromDB();
+            var recipes = await _recipeRepo.GetAllRecipesFromDB(query);
 
             if (recipes is null)
             {

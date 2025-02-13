@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using api.Models.Dto;
@@ -49,12 +50,21 @@ namespace api.Repository
             return recipeForDelete;
         }
 
-        public async Task<List<Recipe>> GetAllRecipesFromDB()
+        public async Task<List<Recipe>> GetAllRecipesFromDB(QueryObject query)
         {
-            return await _context.Recipes
+            var recipes = _context.Recipes
                                     .Include(r => r.Ingredients)
                                     .Include(r => r.Instruction)
-                                    .ToListAsync();
+                                    .AsQueryable();
+            
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                recipes = recipes.Where(r => r.Name.Contains(query.Name));
+            }
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+            return await recipes.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Recipe> GetRecipeById(Guid id)
