@@ -67,7 +67,7 @@ namespace api.Controllers
                 return NotFound("No recipes found");
             }
 
-            var recipesForReturn = _mapper.Map<List<RecipeForReturn>>(recipes);
+            var recipesForReturn = _mapper.Map<List<AllRecipeForReturn>>(recipes);
 
             return Ok(recipesForReturn);
         }
