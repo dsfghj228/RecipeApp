@@ -1,0 +1,57 @@
+.cart_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    width: 400px;
+    height: auto;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .cart_container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .recipe_photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .recipe_name {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #333333;
+    margin: 0;
+  }
+
+  .recipe_description {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    background-color: #f7f7f7;
+    padding: 10px;
+    font-size: 14px;
+    color: #666666;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: bottom 0.3s ease, opacity 0.3s ease;
+    text-align: center;
+  }
+  
+  .cart_container:hover .recipe_description {
+    bottom: 0;
+    opacity: 1;
+  }
