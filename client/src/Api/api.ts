@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const api = "http://localhost:5275/api";
 
-//RECIPES
 
 export const getAllRecipesFromDb = async (pageNumber: number = 1) => {
     const data = await axios.get(`${api}/allRecipes?PageNumber=${pageNumber}`)
@@ -12,12 +11,9 @@ export const getAllRecipesFromDb = async (pageNumber: number = 1) => {
     return data;
 }
 
-//PHOTOS
+export const getRecipe = async (id: string) => {
+    const data = await axios.get(`${api}/recipes/${id}`)
+                            .then(r => r.data);
 
-export const getPhoto = async (fileName: string) => {
-    const data = await axios.get(`${api}/photos/${fileName}`, { responseType: 'blob' })
-                        .then(r => r.data);
-
-    console.log(data)
     return data;
 }

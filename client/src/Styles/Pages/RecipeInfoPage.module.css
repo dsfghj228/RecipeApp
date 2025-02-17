@@ -1,0 +1,109 @@
+.recipe_info_box {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .back_link_box {
+    width: 100%;
+    display: flex;
+    align-items: start;
+  }
+  
+
+  .recipe_photo {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+ 
+  .author {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+    font-style: italic;
+  }
+  
+  
+  .name {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+
+  .description {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+ 
+ .back_link, .cooktime, .servings {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+
+  .ingredients {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+ 
+  .ingredients_list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ingredient {
+    font-size: 16px;
+    margin-bottom: 8px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+  }
+  
+
+  .recipe_steps {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+
+  .step_box {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .step_number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .step {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+  }
