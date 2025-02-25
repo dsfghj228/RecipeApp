@@ -4,8 +4,8 @@ import axios from 'axios';
 const api = "http://localhost:5275/api";
 
 
-export const getAllRecipesFromDb = async (pageNumber: number = 1) => {
-    const data = await axios.get(`${api}/allRecipes?PageNumber=${pageNumber}`)
+export const getAllRecipesFromDb = async ( name: string, pageNumber: number = 1) => {
+    const data = await axios.get(`${api}/allRecipes?PageNumber=${pageNumber}&Name=${name}`)
                         .then(r => r.data);
 
     return data;

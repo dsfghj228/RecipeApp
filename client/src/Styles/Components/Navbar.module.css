@@ -7,7 +7,29 @@
 .navbar_wrapp {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     width: 1200px;
     margin: auto;
+}
+
+.search_box {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_input {
+    margin: 0;
+    margin-right: 20px;
+}
+
+.search_button {
+    margin: 0;
+    width: 100px;
+}
+
+.username {
+    color: azure;
+    font-size: 20px;
 }

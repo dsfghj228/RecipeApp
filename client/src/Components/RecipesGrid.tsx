@@ -10,19 +10,24 @@ type Recipe = {
   photoName: string;
 }
 
-const RecipesGrid = () => {
+type Props = {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>
+}
+
+const RecipesGrid = ({ search, setSearch}: Props) => {
 
   const [ recipes, setRecipes ] = useState<Recipe[]>([]);
 
     useEffect(() => {
       const getRecipes = async () => {
-        const data = await getAllRecipesFromDb();
+        const data = await getAllRecipesFromDb(search);
     
         setRecipes(data);
       }
 
       getRecipes();
-    }, [])
+    }, [search])
     
     const recipeCarts = recipes.map((r) => {
       return <RecipeCart id={r.id} name={r.name} description={r.description} photoName={r.photoName} />

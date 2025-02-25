@@ -27,7 +27,7 @@ const RegisterPage = () => {
 
   return (
     <div className={s.register_wrapp}>
-        <h2>Register</h2>
+        <h2>Зарегестрироваться</h2>
         <form onSubmit={handleSubmit} className={s.input_form}>
             <input placeholder="Username"
                    type="username"
@@ -43,9 +43,9 @@ const RegisterPage = () => {
                    onChange={(e) => setPassword(e.target.value)} />
         </form>
         <div className={s.link_box}>
-            <Link to="/login"><p>Have an account?</p></Link>
+            <Link to="/login"><p>Есть аккаунт?</p></Link>
         </div>
-        <button onClick={() => onClick()}>Register</button>
+        <button onClick={() => onClick()}>Зарегестрироваться</button>
     </div>
   )
 }

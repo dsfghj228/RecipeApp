@@ -59,7 +59,7 @@ namespace api.Repository
             
             if (!string.IsNullOrWhiteSpace(query.Name))
             {
-                recipes = recipes.Where(r => r.Name.Contains(query.Name));
+                recipes = recipes.Where(r => r.Name.ToLower().Contains(query.Name.ToLower()));
             }
 
             var skipNumber = (query.PageNumber - 1) * query.PageSize;

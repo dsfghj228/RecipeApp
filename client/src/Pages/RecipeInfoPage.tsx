@@ -58,7 +58,6 @@ const RecipeInfoPage = () => {
 
   return (
     <div>
-        <Navbar />
         <div className={s.recipe_info_box}>
             <div className={s.back_link_box}>
             <Link to="/"><p className={s.back_link}>Обратно к списку рецептов</p></Link>
