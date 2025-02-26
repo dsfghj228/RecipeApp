@@ -5,6 +5,7 @@ import RecipeInfoPage from './Pages/RecipeInfoPage';
 import { UserProvider } from './Context/userAuth';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
+import ProfilePage from './Pages/ProfilePage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/recipe/:id" element={<RecipeInfoPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </UserProvider>
     </div>

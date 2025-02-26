@@ -24,7 +24,9 @@ const Navbar = ({ search, setSearch}: Props) => {
                      onChange={(e) => setSearch(e.target.value)}/>
             </div>
             {user ? 
-                <p className={s.username}>{user?.userName}</p> 
+                <Link to="/profile">
+                  <p className={s.username}>{user?.userName}</p>
+                </Link> 
                 : 
                 <div>
                   <Link to="/login">Войти в аккаунт</Link>
