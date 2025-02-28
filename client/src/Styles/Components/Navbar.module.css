@@ -1,35 +1,102 @@
 .navbar_box {
-    width: 100%;
-    height: 100px;
-    background-color: #32333d;
-}
-
-.navbar_wrapp {
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar_wrapp {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1200px;
-    margin: auto;
-}
-
-.search_box {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search_input {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    height: 70px;
+    width: auto;
+  }
+  
+  .search_box {
+    flex-grow: 1;
+    margin-left: 20px;
+    position: relative;
+  }
+  
+  .search_input {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
     margin: 0;
-    margin-right: 20px;
-}
-
-.search_button {
-    margin: 0;
-    width: 100px;
-}
-
-.username {
-    color: azure;
-    font-size: 20px;
-}
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .search_input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .search_input::placeholder {
+    color: #888;
+  }
+  
+  .new_recipe_box {
+    margin-left: 20px;
+  }
+  
+  .new_recipe_box a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .new_recipe_box a:hover {
+    color: #0056b3;
+  }
+  
+  .username {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .username:hover {
+    color: #007bff;
+  }
+  
+  .navbar_box .login {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+  .navbar_box .login:hover {
+    color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar_wrapp {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .search_box {
+      margin-top: 10px;
+      width: 100%;
+    }
+  
+    .new_recipe_box {
+      margin-top: 10px;
+    }
+  
+    .username {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }

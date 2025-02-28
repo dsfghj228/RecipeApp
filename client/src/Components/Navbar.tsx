@@ -23,10 +23,17 @@ const Navbar = ({ search, setSearch}: Props) => {
                      value={search}
                      onChange={(e) => setSearch(e.target.value)}/>
             </div>
-            {user ? 
-                <Link to="/profile">
+            {user ?
+            <>
+            <div className={s.new_recipe_box}>
+              <Link to="/newRecipe">
+                Опубликовать рецепт
+              </Link>
+            </div>
+              <Link to="/profile">
                   <p className={s.username}>{user?.userName}</p>
-                </Link> 
+                </Link>
+            </> 
                 : 
                 <div>
                   <Link to="/login">Войти в аккаунт</Link>
