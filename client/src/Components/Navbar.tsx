@@ -35,7 +35,7 @@ const Navbar = ({ search, setSearch}: Props) => {
                 </Link>
             </> 
                 : 
-                <div>
+                <div className={s.login_btn}>
                   <Link to="/login">Войти в аккаунт</Link>
                 </div>
             }
