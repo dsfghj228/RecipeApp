@@ -7,6 +7,7 @@ import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 import NewRecipePage from './Pages/NewRecipePage';
+import ProtectedRoute from './Routes/ProtectedRoute';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/newRecipe" element={<NewRecipePage />} />
+          <Route path="/newRecipe" element={<ProtectedRoute><NewRecipePage /></ProtectedRoute>} />
         </Routes>
       </UserProvider>
     </div>
