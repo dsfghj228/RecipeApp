@@ -12,7 +12,7 @@ type Recipe = {
 
 type Props = {
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const RecipesGrid = ({ search, setSearch}: Props) => {

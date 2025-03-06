@@ -76,6 +76,11 @@ namespace api.Repository
                             .FirstOrDefaultAsync(r => r.Id == id);
         }
 
+        public async Task<int> GetRecipeCount()
+        {
+            return await _context.Recipes.CountAsync();
+        }
+
         public async Task<List<Recipe>> GetRecipes(AppUser user)
         {
             return await _context.Recipes

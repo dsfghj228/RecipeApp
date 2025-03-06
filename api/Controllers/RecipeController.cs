@@ -98,6 +98,14 @@ namespace api.Controllers
             return Ok(recipeForReturn);
         }
 
+        [HttpGet("Count")]
+        public async Task<IActionResult> GetRecipeCount()
+        {
+            var count = await _recipeRepo.GetRecipeCount();
+
+            return Ok(count);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateOrUpdateRecipeModel createRecipeModel)
