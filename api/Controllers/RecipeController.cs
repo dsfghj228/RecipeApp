@@ -99,11 +99,23 @@ namespace api.Controllers
         }
 
         [HttpGet("Count")]
-        public async Task<IActionResult> GetRecipeCount()
+        public async Task<IActionResult> GetRecipeCount([FromQuery] QueryObject query)
         {
-            var count = await _recipeRepo.GetRecipeCount();
+            try
+            {
+                var count = await _recipeRepo.GetRecipeCount(query);
 
-            return Ok(count);
+                if (count == null)
+                {
+                    return BadRequest("Unable to retrieve recipe count. Please check the query parameters.");
+                }
+
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error. Please try again later.");
+            }
         }
 
         [HttpPost]

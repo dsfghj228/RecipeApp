@@ -40,8 +40,8 @@ export const getRecipe = async (id: string) => {
     return data;
 }
 
-export const getRecipesCount = async () => {
-  const data = await axios.get(`${api}/recipes/Count`)
+export const getRecipesCount = async (name: string) => {
+  const data = await axios.get(`${api}/recipes/Count?Name=${name}`)
                           .then(r => r.data);
   
   return data;

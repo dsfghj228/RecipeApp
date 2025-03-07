@@ -76,9 +76,14 @@ namespace api.Repository
                             .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public async Task<int> GetRecipeCount()
+        public async Task<int> GetRecipeCount(QueryObject query)
         {
-            return await _context.Recipes.CountAsync();
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                return await _context.Recipes.Where(r => r.Name.ToLower().Contains(query.Name.ToLower())).CountAsync();
+            } else {
+                return await _context.Recipes.CountAsync();
+            }
         }
 
         public async Task<List<Recipe>> GetRecipes(AppUser user)
