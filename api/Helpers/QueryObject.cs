@@ -9,6 +9,6 @@ namespace api.Helpers
     {
         public string? Name { get; set; } = null;
         public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 9;
+        public int PageSize { get; set; } = 12;
     }
 }
