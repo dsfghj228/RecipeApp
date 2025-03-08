@@ -9,6 +9,8 @@ namespace api.Models
 {
     public class AppUser : IdentityUser
     {
+        public string PhotoName { get; set; } = "";
+        
         [JsonIgnore]
         public ICollection<api.Models.Recipe.Recipe> Recipes { get; set; }
     }

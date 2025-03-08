@@ -45,7 +45,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({ children }
                         localStorage.setItem("token", res?.data.token);
                         const userObj = {
                             userName: res?.data.userName,
-                            email: res?.data.email
+                            email: res?.data.email,
                         }
                         localStorage.setItem("user", JSON.stringify(userObj));
                         setToken(res?.data.token!);

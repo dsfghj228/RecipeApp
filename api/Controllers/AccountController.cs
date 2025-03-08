@@ -52,7 +52,8 @@ namespace api.Controllers
                         return Ok(new NewUserModel {
                             UserName = appUser.UserName,
                             Email = appUser.Email,
-                            Token = _tokenService.CreateToken(appUser)
+                            Token = _tokenService.CreateToken(appUser),
+                            PhotoName = appUser.PhotoName
                         });
                     }else{
                         return StatusCode(500, roleResult.Errors);
@@ -92,8 +93,47 @@ namespace api.Controllers
             {
                 UserName = user.UserName,
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoName = user.PhotoName
             });
+        }
+
+        [HttpPost("uploadAvatar")]
+        public async Task<IActionResult> UploadAvatar([FromBody] string photoFileName)
+        {
+            if (string.IsNullOrEmpty(photoFileName))
+            {
+                return BadRequest("Photo file name is required.");
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized("User not found.");
+            }
+
+            try
+            {
+                user.PhotoName = photoFileName;
+
+                var updateResult = await _userManager.UpdateAsync(user);
+        
+                if (!updateResult.Succeeded)
+                {
+                    return StatusCode(500, updateResult.Errors);
+                }
+
+                return Ok(new 
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhotoName = user.PhotoName
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
     }
 }
