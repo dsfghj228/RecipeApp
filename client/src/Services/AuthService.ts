@@ -4,6 +4,7 @@ type UserProfileToken = {
     userName: string;
     email: string;
     token: string;
+    photoName: string;
 }
 
 const api = "http://localhost:5275/api";

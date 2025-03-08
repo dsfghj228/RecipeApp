@@ -4,8 +4,9 @@ import { loginApi, registerApi,} from "../Services/AuthService";
 import axios from "axios";
 
 type UserProfile = {
-    userName: string;
-    email: string;
+    userName: string | undefined;
+    email: string | undefined;
+    photoName: string;
 }
 
 type UserContextType = {
@@ -15,6 +16,7 @@ type UserContextType = {
     login: (username: string, password: string) => void;
     logout: () => void;
     isLoggedIn: () => boolean;
+    changeUser: (photoName: string) => void;
 }
 
 const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -47,7 +49,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({ children }
                     email: res?.data.email,
                 }));
                 setToken(res?.data.token);
-                setUser({ userName: res?.data.userName, email: res?.data.email });
+                setUser({ userName: res?.data.userName, email: res?.data.email, photoName: res?.data.photoName });
                 navigate("/");
             }
         } catch (e) {
@@ -63,7 +65,8 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({ children }
                         localStorage.setItem("token", res?.data.token);
                         const userObj = {
                             userName: res?.data.userName,
-                            email: res?.data.email
+                            email: res?.data.email,
+                            photoName: res?.data.photoName
                         }
                         localStorage.setItem("user", JSON.stringify(userObj));
                         setToken(res?.data.token!);
@@ -85,8 +88,19 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({ children }
         navigate("/login");
     };
 
+    const changeUser = (photoName: string) => {
+        const changedUser: UserProfile = {
+            userName: user?.userName,
+            email: user?.email,
+            photoName: photoName
+        }
+        setUser(changedUser);
+
+        localStorage.setItem("user", JSON.stringify(changedUser));
+    };
+
     return (
-        <UserContext.Provider value={{ login, user, token, logout, isLoggedIn, register }}>
+        <UserContext.Provider value={{ login, user, token, logout, isLoggedIn, register, changeUser }}>
             {isReady ? children : null}
         </UserContext.Provider>
     )

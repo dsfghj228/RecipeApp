@@ -76,3 +76,30 @@ export const uploadPhoto = async (file: File | null): Promise<any> => {
         return null;
     }
   };
+
+  export const deletePhoto = async (fileName: string | undefined): Promise<void> => {
+    try {
+      await axios.delete(`${api}/photos/${fileName}`);
+    } catch (error) {
+      console.error('Ошибка при удалении фото:', error);
+      throw error;
+    }
+  };
+
+// User
+
+export const updatePhoto = async (photoName: string) => {
+  try {
+    const data = axios.post(`${api}/account/uploadAvatar`,JSON.stringify(photoName), // Отправляем имя файла как строку в JSON
+    {
+        headers: {
+            'Content-Type': 'application/json',  // Указываем, что данные в формате JSON
+        }
+    })
+                      .then(r => r.data);
+    return data;
+  } catch (err)
+  {
+    console.log(err);
+  }
+};

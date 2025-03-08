@@ -76,7 +76,6 @@ const RecipesGrid = ({ search, setSearch}: Props) => {
 
     const paginator = () => {
       let pagesCount = Math.ceil(recipesInDBCount / 12);
-      console.log(recipesInDBCount)
       return (
         <div className={s.paginator_btns_box}>
             <button className={s.prev_btn} disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage-1)}>{"<"}</button>
