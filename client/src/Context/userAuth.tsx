@@ -37,22 +37,22 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({ children }
         setIsReady(true);
     }, [])
 
-    const register = async (email: string, username: string, password: string) => {
-        await registerApi(email, username, password)
-                .then((res) => {
-                    if(res)
-                    {
-                        localStorage.setItem("token", res?.data.token);
-                        const userObj = {
-                            userName: res?.data.userName,
-                            email: res?.data.email,
-                        }
-                        localStorage.setItem("user", JSON.stringify(userObj));
-                        setToken(res?.data.token!);
-                        setUser(userObj!);
-                        navigate("/");
-                    }
-            }).catch(e => console.log(e));
+    const register = async (username: string, email: string, password: string) => {
+        try {
+            const res = await registerApi( email, username,password);
+            if (res) {
+                localStorage.setItem("token", res?.data.token);
+                localStorage.setItem("user", JSON.stringify({
+                    userName: res?.data.userName,
+                    email: res?.data.email,
+                }));
+                setToken(res?.data.token);
+                setUser({ userName: res?.data.userName, email: res?.data.email });
+                navigate("/");
+            }
+        } catch (e) {
+            console.error('Registration failed:', e);
+        }
     };
 
     const login = async (username: string, password: string) => {
