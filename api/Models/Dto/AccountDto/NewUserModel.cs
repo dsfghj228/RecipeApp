@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Models.FavoriteRecipesController;
 
 namespace api.Models.Dto
 {
@@ -11,5 +12,6 @@ namespace api.Models.Dto
         public string Email { get; set; }
         public string Token { get; set; }
         public string PhotoName { get; set; }
+        public ICollection<FavoriteRecipe> FavoriteRecipes { get; set; }
     }
 }

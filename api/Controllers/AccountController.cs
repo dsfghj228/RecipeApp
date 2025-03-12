@@ -94,7 +94,8 @@ namespace api.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Token = _tokenService.CreateToken(user),
-                PhotoName = user.PhotoName
+                PhotoName = user.PhotoName,
+                FavoriteRecipes = user.FavoriteRecipes
             });
         }
 
