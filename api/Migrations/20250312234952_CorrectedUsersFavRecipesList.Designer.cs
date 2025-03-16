@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using api.Data;
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250312234952_CorrectedUsersFavRecipesList")]
+    partial class CorrectedUsersFavRecipesList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "60548537-de07-48f9-8cee-70749c853f92",
+                            Id = "acdddf29-3058-4083-b2ee-a524e9e4f45b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "fcabf37c-f8ff-4078-a39f-d8ba6275e870",
+                            Id = "09b110b0-bdf7-469e-8974-1343dfe1f494",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -238,15 +241,24 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.FavoriteRecipesController.FavoriteRecipe", b =>
                 {
-                    b.Property<Guid>("RecipeId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("AppUserId")
                         .HasColumnType("text");
 
-                    b.HasKey("RecipeId", "UserId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasIndex("UserId");
+                    b.Property<string>("PhotoName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("FavoriteRecipe");
                 });
@@ -392,21 +404,9 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.FavoriteRecipesController.FavoriteRecipe", b =>
                 {
-                    b.HasOne("api.Models.Recipe.Recipe", "Recipe")
+                    b.HasOne("api.Models.AppUser", null)
                         .WithMany("FavoriteRecipes")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Models.AppUser", "User")
-                        .WithMany("FavoriteRecipes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("User");
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("api.Models.Recipe.Ingredient", b =>
@@ -451,8 +451,6 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Recipe.Recipe", b =>
                 {
-                    b.Navigation("FavoriteRecipes");
-
                     b.Navigation("Ingredients");
 
                     b.Navigation("Instruction");

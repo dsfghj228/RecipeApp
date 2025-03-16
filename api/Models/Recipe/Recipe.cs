@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Models.FavoriteRecipesController;
 
 namespace api.Models.Recipe
 {
@@ -18,5 +19,7 @@ namespace api.Models.Recipe
 
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+
+        public ICollection<FavoriteRecipe> FavoriteRecipes { get; set; }
     }
 }

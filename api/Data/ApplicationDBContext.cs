@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
+using api.Models.FavoriteRecipesController;
 using api.Models.Recipe;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -48,6 +49,18 @@ namespace api.Data
             .HasMany(r => r.Ingredients)
             .WithOne(i => i.Recipe)
             .HasForeignKey(i => i.RecipeId);
+
+            builder.Entity<FavoriteRecipe>().HasKey(fr => new {fr.RecipeId, fr.UserId});
+
+            builder.Entity<FavoriteRecipe>()
+            .HasOne(fr => fr.User)
+            .WithMany(u => u.FavoriteRecipes)
+            .HasForeignKey(fr => fr.UserId);
+
+            builder.Entity<FavoriteRecipe>()
+            .HasOne(fr => fr.Recipe)
+            .WithMany(r => r.FavoriteRecipes)
+            .HasForeignKey(fr => fr.RecipeId);
         }
     }
 }

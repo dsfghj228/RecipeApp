@@ -7,8 +7,10 @@ namespace api.Models.FavoriteRecipesController
 {
     public class FavoriteRecipe
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string PhotoName { get; set; }
+        public string UserId { get; set; }
+        public AppUser User { get; set; }
+
+        public Guid RecipeId { get; set; }
+        public api.Models.Recipe.Recipe Recipe { get; set; }
     }
 }

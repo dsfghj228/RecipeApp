@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Interfaces;
 using api.Models;
 using api.Models.Dto;
+using api.Models.FavoriteRecipesController;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -136,5 +137,6 @@ namespace api.Controllers
                 return StatusCode(500, e);
             }
         }
+
     }
 }
