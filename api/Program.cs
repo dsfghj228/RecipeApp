@@ -83,6 +83,7 @@ builder.Services.AddAuthentication(options => {
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRecipeRepository, ResipeRepository>();
+builder.Services.AddScoped<IFavoriteRecipeRepository, FavoriteRecipeRepository>();
 
 var app = builder.Build();
 

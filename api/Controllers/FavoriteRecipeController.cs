@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using api.Interfaces;
 using api.Models;
 using api.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -16,10 +17,10 @@ namespace api.Controllers
     [Authorize]
     public class FavoriteRecipeController : ControllerBase
     {
-        private readonly FavoriteRecipeRepository _favRecipeRepo;
+        private readonly IFavoriteRecipeRepository _favRecipeRepo;
         private readonly UserManager<AppUser> _userManager;
 
-        public FavoriteRecipeController(FavoriteRecipeRepository favRecipeRepo, UserManager<AppUser> userManager)
+        public FavoriteRecipeController(IFavoriteRecipeRepository favRecipeRepo, UserManager<AppUser> userManager)
         {
             _favRecipeRepo = favRecipeRepo;
         }

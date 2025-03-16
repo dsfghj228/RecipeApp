@@ -6,6 +6,7 @@ using api.Data;
 using api.Interfaces;
 using api.Models.FavoriteRecipesController;
 using api.Models.Recipe;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
@@ -21,6 +22,25 @@ namespace api.Repository
         public async Task<FavoriteRecipe> AddRecipeToFavorite(Guid recipeId, string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
+            {
+                return null;
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var recipe = await _context.Recipes.FindAsync(recipeId);
+            if (recipe == null)
+            {
+                return null;
+            }
+
+            var existingFavorite = await _context.FavoriteRecipes.FirstOrDefaultAsync(fr => fr.UserId == userId && fr.RecipeId == recipeId);
+
+            if (existingFavorite != null)
             {
                 return null;
             }
