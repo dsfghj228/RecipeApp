@@ -69,6 +69,27 @@ namespace api.Controllers
 
             return Ok(recipesForReturn);
         }
+
+        [HttpDelete("recipeId")]
+        public async Task<IActionResult> RemoveFromFavorites([FromQuery] Guid recipeId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if(userId == null)
+            {
+                return Unauthorized("User is unathorized");
+            }
+
+            var recipe = await _favRecipeRepo.RemoveFromFavorites(recipeId, userId);
+
+            if (recipe == null)
+            {
+                return BadRequest("User or/and recipe not found");
+            }
+
+            return Ok(recipe);
+        }
+
         
     }
 }

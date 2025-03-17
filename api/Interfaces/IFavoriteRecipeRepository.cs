@@ -11,5 +11,6 @@ namespace api.Interfaces
     {
         Task<FavoriteRecipe> AddRecipeToFavorite(Guid recipeId, string userId);
         Task<List<Recipe>> GetFavorites(string userId);
+        Task<FavoriteRecipe> RemoveFromFavorites(Guid recipeId, string userId);
     }
 }

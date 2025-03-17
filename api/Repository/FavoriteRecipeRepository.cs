@@ -79,5 +79,29 @@ namespace api.Repository
                                                 .Select(fr => fr.Recipe)
                                                 .ToListAsync();
         }
+
+        public async Task<FavoriteRecipe> RemoveFromFavorites(Guid recipeId, string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return null;
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var recipeForRemove = await _context.FavoriteRecipes.FirstOrDefaultAsync(fr => fr.UserId == userId && fr.RecipeId == recipeId);
+
+            if (recipeForRemove is null)
+            {
+                return null;
+            }
+
+            return recipeForRemove;
+        }
     }
 }
