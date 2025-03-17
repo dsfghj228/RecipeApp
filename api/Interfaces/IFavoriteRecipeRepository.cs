@@ -10,5 +10,6 @@ namespace api.Interfaces
     public interface IFavoriteRecipeRepository
     {
         Task<FavoriteRecipe> AddRecipeToFavorite(Guid recipeId, string userId);
+        Task<List<Recipe>> GetFavorites(string userId);
     }
 }

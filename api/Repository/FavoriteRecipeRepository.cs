@@ -6,6 +6,7 @@ using api.Data;
 using api.Interfaces;
 using api.Models.FavoriteRecipesController;
 using api.Models.Recipe;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
@@ -55,6 +56,28 @@ namespace api.Repository
             await _context.SaveChangesAsync();
 
             return favoriteRecipe;
+        }
+
+        public async Task<List<Recipe>> GetFavorites(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return null;
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return await _context.FavoriteRecipes.Where(fr => fr.UserId == userId)
+                                                .Include(fr => fr.Recipe)
+                                                .Include(fr => fr.Recipe.Ingredients)
+                                                .Include(fr => fr.Recipe.Instruction)
+                                                .Select(fr => fr.Recipe)
+                                                .ToListAsync();
         }
     }
 }
